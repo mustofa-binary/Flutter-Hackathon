@@ -9,8 +9,8 @@ router.post('/contact', (req, res) => {
         res.status(400).send('Request body is missing')
         return
     }
-    var base64str = req.body.image_uri.substr(22)
-    var decoded = atob(base64str)
+    const base64str = req.body.image_uri.substr(22)
+    const decoded = atob(base64str)
     if (decoded.length > 30000) { // check file size not more than 50 kb
         res.status(400).send('Image cannot be more than 30KB')
         return
