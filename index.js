@@ -18,6 +18,8 @@ app.use((req, res, next) => {
 
 app.use(contact_route)
 
+app.get('/', (req, res) => res.send('Hi welcome to contact API'))
+
 app.use((req, res, next) => {
     res.status(404).send('We think you are lost')
 })
