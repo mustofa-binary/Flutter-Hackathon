@@ -1,6 +1,7 @@
 let ContactModel = require('../models/schema/contact.model')
 let express = require('express')
 let router = express.Router()
+let atob = require('atob')
 
 // SECTION 1 : REST API
 router.post('/contact', (req, res) => {
@@ -8,6 +9,12 @@ router.post('/contact', (req, res) => {
         res.status(400).send('Request body is missing')
         return
     }
+    var base64str = req.body.image_uri.substr(22)
+    var decoded = atob(base64str)
+    if (decoded.length > 30000) { // check file size not more than 50 kb
+        res.status(400).send('Image cannot be more than 30KB')
+        return
+    } 
 
     let model = new ContactModel(req.body)
     model.save()
